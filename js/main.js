@@ -46,11 +46,16 @@
       var g=function(n){ return form.querySelector('[name='+n+']').value.trim(); };
       var msg='NEW BID -- '+form.getAttribute('data-service')+'\nName: '+g('name')+'\nContact: '+g('contact')+'\nBudget: '+g('budget')+' '+g('currency')+'\nDetails: '+g('details');
       window.open('https://wa.me/966532448127?text='+encodeURIComponent(msg),'_blank');
+      if(window.ttq){ try{ ttq.track('SubmitForm',{content_name:form.getAttribute('data-service')}); }catch(e){} }
       var note=form.querySelector('.bid-note');
       if(note){ note.style.display='block'; }
     });
     form.querySelectorAll('[data-req]').forEach(function(inp){
       inp.addEventListener('input',function(){ inp.closest('.fld').classList.remove('bad'); });
     });
+  });
+  // whatsapp float -> tiktok contact event
+  document.querySelectorAll('.wa-float').forEach(function(a){
+    a.addEventListener('click',function(){ if(window.ttq){ try{ ttq.track('Contact'); }catch(e){} } });
   });
 })();
